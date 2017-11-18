@@ -8,7 +8,8 @@ namespace Task3.AutomaticTelephoneExchange
 {
     class Contract
     {
-        
+        readonly Random _random = new Random();
+
         public Tariff Tariff { get; private set; }
 
         public Client Client { get; private set; }
@@ -21,16 +22,13 @@ namespace Task3.AutomaticTelephoneExchange
         {
             Tariff = tariff;
             Client = client;
-            Number = GetNumber();
+            Number = _random.Next(1000000, 9999999);
             RegisterDate = DateTime.Today;
         }
 
         private int GetNumber()
         {
-            var random = new Random();
-
-            var number = random.Next(1000000, 9999999);
-
+            var number = _random.Next(1000000, 9999999);
             return number;
         }
 

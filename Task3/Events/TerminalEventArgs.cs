@@ -27,5 +27,10 @@ namespace Task3.Events
             TargetNumber = targetNumber;
             Message = message;
         }
+
+        public TerminalEventArgs(string message)
+        {
+            Message = message;
+        }
     }
 }

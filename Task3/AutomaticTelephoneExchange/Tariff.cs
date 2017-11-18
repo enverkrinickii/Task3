@@ -15,8 +15,6 @@ namespace Task3.AutomaticTelephoneExchange
 
         public int CoastPerMonth { get; private set; }
 
-        public int FreeMinutes { get; private set; }
-
         public Tariff(TariffType type)
         {
             Type = type;
@@ -30,28 +28,24 @@ namespace Task3.AutomaticTelephoneExchange
                 case TariffType.Low:
                 {
                     CoastPerMinute = 5;
-                    FreeMinutes = 100;
                     CoastPerMonth = 100;
                     break;
                 }
                 case TariffType.Medium:
                 {
                     CoastPerMinute = 8;
-                    FreeMinutes = 200;
                     CoastPerMonth = 200;
                     break;
                 }
                 case TariffType.Premium:
                 {
                     CoastPerMinute = 10;
-                    FreeMinutes = 500;
                     CoastPerMonth = 500;
                     break;
                 }
                 default:
                 {
                     CoastPerMinute = 0;
-                    FreeMinutes = 0;
                     CoastPerMonth = 0;
                     break;
                 }

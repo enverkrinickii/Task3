@@ -29,8 +29,6 @@ namespace Task3.AutomaticTelephoneExchange
             Port = port;
         }
 
-        
-
         protected virtual void OnAnswered(int targetNumber)
         {
             Answered?.Invoke(this, new TerminalEventArgs(targetNumber, PortState.Busy, $"Принят исходящий вызов от {targetNumber}"));
@@ -41,9 +39,9 @@ namespace Task3.AutomaticTelephoneExchange
             InCalled?.Invoke(this, new TerminalEventArgs(targetNumber, $"Идет процесс звонка... Абонент {Number} звонит {targetNumber}"));
         }
 
-        protected virtual void OnEnded(int targetNumber)
+        protected virtual void OnEnded()
         {
-            Ended?.Invoke(this, new TerminalEventArgs(targetNumber, $"Звонок окончен. Абонент {Number} положил трубку"));
+            Ended?.Invoke(this, new TerminalEventArgs( $"Звонок окончен. Абонент {Number} положил трубку"));
         }
 
         public void AnswerToCall(int target)
@@ -59,9 +57,9 @@ namespace Task3.AutomaticTelephoneExchange
             OnInCalled(targetNumber);
         }
 
-        public void EndCall(int target)
+        public void EndCall()
         {
-            OnEnded(target);
+            OnEnded();
         }
 
     }

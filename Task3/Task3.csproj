@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AutomaticTelephoneExchange\ATE.cs" />
     <Compile Include="AutomaticTelephoneExchange\BillingSystem.cs" />
+    <Compile Include="AutomaticTelephoneExchange\CallInformation.cs" />
     <Compile Include="AutomaticTelephoneExchange\Client.cs" />
     <Compile Include="AutomaticTelephoneExchange\Port.cs" />
     <Compile Include="AutomaticTelephoneExchange\Report.cs" />
