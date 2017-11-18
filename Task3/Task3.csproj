@@ -42,11 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomaticTelephoneExchange\ATE.cs" />
+    <Compile Include="AutomaticTelephoneExchange\Client.cs" />
+    <Compile Include="AutomaticTelephoneExchange\Port.cs" />
+    <Compile Include="AutomaticTelephoneExchange\Terminal.cs" />
+    <Compile Include="AutomaticTelephoneExchange\Contract.cs" />
+    <Compile Include="AutomaticTelephoneExchange\Tariff.cs" />
+    <Compile Include="Enums\PortState.cs" />
+    <Compile Include="Enums\TariffType.cs" />
+    <Compile Include="Events\AnswerEvent.cs" />
+    <Compile Include="Events\EndCallEvent.cs" />
+    <Compile Include="Events\ReportEvent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
