@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task3.AutomaticTelephoneExchange
 {
-    class CallInformation
+    public class CallInformation
     {
         public int Number { get; private set; }
 

@@ -23,5 +23,10 @@ namespace Task3.AutomaticTelephoneExchange
             Time = time;
             Cost = cost;
         }
+
+        public override string ToString()
+        {
+            return $"Telephone number {this.Number}, call Date {this.Date}, duration: {this.Time}, Coast: {this.Cost}";
+        }
     }
 }

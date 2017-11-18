@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Task3
         static void Main(string[] args)
         {
             ATE ate =  new ATE();
+            BillingSystem bs = new BillingSystem();
 
             var contract = ate.RegisterNewContract(new Client("Ivan", "Ivanov", 300), new Tariff(TariffType.Low));
             Thread.Sleep(100);
@@ -40,7 +42,16 @@ namespace Task3
 
             CallProcess(terminal, terminal1, ate);
             CallProcess(terminal1, terminal2, ate);
-            CallProcess(terminal2, terminal, ate);
+            CallProcess(terminal1, terminal, ate);
+
+            var calls = ate.GetCallInformations();
+
+            var reports = bs.GetReports(terminal1.Number, calls );
+
+            foreach (var report in reports)
+            {
+                Console.WriteLine(report);
+            }
 
             Console.ReadKey();
         }
@@ -69,6 +80,7 @@ namespace Task3
                     DateTime endTime = DateTime.Now;
                     var callCost = ate.GetCallCost(beginTime, endTime, terminal2);
                     CallInformation callInformation = new CallInformation(terminal2.Number, terminal.Number, beginTime, endTime, callCost);
+                    ate.AddCallInformation(callInformation);
                 }
                 else
                 {
