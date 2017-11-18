@@ -8,25 +8,40 @@ namespace Task3.AutomaticTelephoneExchange
 {
     public class BillingSystem
     {
-        private IList<Report> _reports;
+        public IList<Report> Reports = new List<Report>();
 
-        public BillingSystem()
+        public BillingSystem(/*IList<Report> reports*/)
         {
-            
+            //_reports = reports;
         }
 
         public IList<Report> GetReports(int telephoneNumber, IList<CallInformation> callInformations)
         {
-            _reports = new List<Report>();
             var calls = callInformations.Where(x => x.Number == telephoneNumber || x.TargetNumber == telephoneNumber).
                 ToList();
 
             foreach (var call in calls)
             {
-                _reports.Add(new Report(call.Number, call.BeginCall, new DateTime((call.EndCall - call.BeginCall).Ticks), call.Cost));
+                Reports.Add(new Report(call.Number, call.BeginCall, new DateTime((call.EndCall - call.BeginCall).Ticks), call.Cost));
             }
 
-            return _reports;
+            return Reports;
         }
+
+        public IEnumerable<Report> SortByNumber()
+        {
+           return Reports.OrderBy(r => r.Number);
+        }
+
+        public IEnumerable<Report> SortByDuration()
+        {
+            return Reports.OrderBy(r => r.Duration);
+        }
+
+        public IEnumerable<Report> SortByCost()
+        {
+            return Reports.OrderBy(r => r.Cost);
+        }
+
     }
 }

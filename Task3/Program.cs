@@ -40,15 +40,22 @@ namespace Task3
             terminal1.Ended += Display;
             terminal2.Ended += Display;
 
-            CallProcess(terminal, terminal1, ate);
-            CallProcess(terminal1, terminal2, ate);
-            CallProcess(terminal1, terminal, ate);
+            CallProcess(terminal1, terminal, ate, 10000);
+            CallProcess(terminal2, terminal1, ate, 1000);
+            CallProcess(terminal, terminal1, ate, 1000);
 
             var calls = ate.GetCallInformations();
 
-            var reports = bs.GetReports(terminal1.Number, calls );
+            var reports = bs.GetReports(terminal1.Number, calls);
 
             foreach (var report in reports)
+            {
+                Console.WriteLine(report);
+            }
+
+            var sorted = bs.SortByDuration();
+
+            foreach (var report in sorted)
             {
                 Console.WriteLine(report);
             }
@@ -61,11 +68,11 @@ namespace Task3
             Console.WriteLine(e.Message);
         }
 
-        private static void CallProcess(Terminal terminal, Terminal terminal2, ATE ate)
+        private static void CallProcess(Terminal answerer, Terminal ask, ATE ate, int delay)
         {
             
             var flag = true;
-            terminal2.Call(terminal.Number);
+            ask.Call(answerer.Number);
             while (flag)
             {
                 Console.WriteLine("Do you want to answer? Y/N");
@@ -73,18 +80,18 @@ namespace Task3
                 if (k == 'Y' || k == 'y')
                 {
                     flag = false;
-                    terminal.AnswerToCall(terminal2.Number);
+                    answerer.AnswerToCall(ask.Number);
                     DateTime beginTime = DateTime.Now;
-                    Thread.Sleep(1000);
-                    terminal.EndCall();
+                    Thread.Sleep(delay);
+                    answerer.EndCall();
                     DateTime endTime = DateTime.Now;
-                    var callCost = ate.GetCallCost(beginTime, endTime, terminal2);
-                    CallInformation callInformation = new CallInformation(terminal2.Number, terminal.Number, beginTime, endTime, callCost);
+                    var callCost = ate.GetCallCost(beginTime, endTime, ask);
+                    CallInformation callInformation = new CallInformation(ask.Number, answerer.Number, beginTime, endTime, callCost);
                     ate.AddCallInformation(callInformation);
                 }
                 else
                 {
-                    Console.WriteLine($"Terminal with number: {terminal.Number}, have rejected call");
+                    Console.WriteLine($"Terminal with number: {answerer.Number}, have rejected call");
                 }
 
                 Console.WriteLine();

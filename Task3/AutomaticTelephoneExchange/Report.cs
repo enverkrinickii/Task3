@@ -12,21 +12,21 @@ namespace Task3.AutomaticTelephoneExchange
 
         public DateTime Date { get; private set; }
 
-        public DateTime Time { get; private set; }
+        public DateTime Duration { get; private set; }
 
         public int Cost { get; private set; }
 
-        public Report(int number, DateTime date, DateTime time, int cost)
+        public Report(int number, DateTime date, DateTime duration, int cost)
         {
             Number = number;
             Date = date;
-            Time = time;
+            Duration = duration;
             Cost = cost;
         }
 
         public override string ToString()
         {
-            return $"Telephone number {this.Number}, call Date {this.Date}, duration: {this.Time}, Coast: {this.Cost}";
+            return $"Telephone number {this.Number}, call Date {this.Date}, duration: {this.Duration}, Coast: {this.Cost}";
         }
     }
 }
