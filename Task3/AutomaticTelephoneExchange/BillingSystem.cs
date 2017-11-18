@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task3.Events
+namespace Task3.AutomaticTelephoneExchange
 {
-    class EndCallEvent : EventArgs
+    public class BillingSystem
     {
     }
 }

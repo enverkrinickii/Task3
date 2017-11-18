@@ -7,16 +7,36 @@ using Task3.Enums;
 
 namespace Task3.AutomaticTelephoneExchange
 {
-    class Port
+    public class Port
     {
         public PortState State;
-        private bool _isOnline;
+        public bool IsOnline;
         
         public Port()
         {
-            this.State = PortState.Disconnect;
+            State = PortState.Disconnect;
         }
 
+        public bool Connect()
+        {
+            if (State == PortState.Disconnect)
+            {
+                State = PortState.Connect;
+                IsOnline = true;
+            }
+
+            return IsOnline;
+        }
+
+        public bool Disconnect()
+        {
+            if (State == PortState.Connect)
+            {
+                State = PortState.Disconnect;
+                IsOnline = false;
+            }
+            return IsOnline;
+        }
         
     }
 }

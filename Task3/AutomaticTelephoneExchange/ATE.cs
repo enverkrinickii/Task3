@@ -32,11 +32,14 @@ namespace Task3.AutomaticTelephoneExchange
             return terminal;
         }
 
+        //запись в словарь
         public IDictionary<Contract, Terminal> AddContractsDictionary(Terminal terminal, Contract contract)
         {
             _contractsAndTerminals.Add(contract, terminal);
             return _contractsAndTerminals;
         }
+
+
 
          
     }

@@ -10,6 +10,6 @@ namespace Task3.Enums
     {
         Low,
         Medium,
-        Hard
+        Premium
     }
 }
