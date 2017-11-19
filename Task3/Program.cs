@@ -15,8 +15,8 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            ATE ate =  new ATE();
-            BillingSystem bs = new BillingSystem();
+            var ate =  new ATE();
+            var bs = new BillingSystem();
 
             var contract = ate.RegisterNewContract(new Client("Ivan", "Ivanov", 300), new Tariff(TariffType.Low));
             Thread.Sleep(100);
@@ -32,9 +32,9 @@ namespace Task3
             terminal1.Answered += Display;
             terminal2.Answered += Display;
 
-            terminal.InCalled += Display;
-            terminal1.InCalled += Display;
-            terminal2.InCalled += Display;
+            terminal.Called += Display;
+            terminal1.Called += Display;
+            terminal2.Called += Display;
 
             terminal.Ended += Display;
             terminal1.Ended += Display;
@@ -76,17 +76,17 @@ namespace Task3
             while (flag)
             {
                 Console.WriteLine("Do you want to answer? Y/N");
-                char k = Console.ReadKey().KeyChar;
+                var k = Console.ReadKey().KeyChar;
                 if (k == 'Y' || k == 'y')
                 {
                     flag = false;
                     answerer.AnswerToCall(ask.Number);
-                    DateTime beginTime = DateTime.Now;
+                    var beginTime = DateTime.Now;
                     Thread.Sleep(delay);
                     answerer.EndCall();
-                    DateTime endTime = DateTime.Now;
+                    var endTime = DateTime.Now;
                     var callCost = ate.GetCallCost(beginTime, endTime, ask);
-                    CallInformation callInformation = new CallInformation(ask.Number, answerer.Number, beginTime, endTime, callCost);
+                    var callInformation = new CallInformation(ask.Number, answerer.Number, beginTime, endTime, callCost);
                     ate.AddCallInformation(callInformation);
                 }
                 else
