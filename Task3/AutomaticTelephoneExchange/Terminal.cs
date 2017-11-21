@@ -11,13 +11,13 @@ namespace Task3.AutomaticTelephoneExchange
 {
     public class Terminal
     {
-        public delegate void TerminalStateHandler(object sender, TerminalEventArgs e );
+        //public delegate void TerminalStateHandler(object sender, TerminalEventArgs e );
 
-        public event TerminalStateHandler Answered;
+        public event EventHandler<TerminalEventArgs> Answered;
 
-        public event TerminalStateHandler Called;
+        public event EventHandler<TerminalEventArgs> Called;
 
-        public event TerminalStateHandler Ended;
+        public event EventHandler<TerminalEventArgs> Ended;
 
         public int Number { get; private set; }
 

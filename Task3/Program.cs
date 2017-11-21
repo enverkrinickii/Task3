@@ -40,9 +40,12 @@ namespace Task3
             terminal1.Ended += Display;
             terminal2.Ended += Display;
 
-            CallProcess(terminal1, terminal, ate, 10000);
-            CallProcess(terminal2, terminal1, ate, 1000);
-            CallProcess(terminal, terminal1, ate, 1000);
+            var key = AnswerKey();
+            Console.WriteLine(ate.CallProcess(terminal1, terminal, 10000, key));
+            key = AnswerKey();
+            Console.WriteLine(ate.CallProcess(terminal2, terminal1, 2000, key));
+            key = AnswerKey();
+            Console.WriteLine(ate.CallProcess(terminal, terminal1, 4000, key));
 
             var calls = ate.GetCallInformations();
 
@@ -68,35 +71,13 @@ namespace Task3
             Console.WriteLine(e.Message);
         }
 
-        private static void CallProcess(Terminal answerer, Terminal ask, ATE ate, int delay)
+        private static char AnswerKey()
         {
-            
-            var flag = true;
-            ask.Call(answerer.Number);
-            while (flag)
-            {
-                Console.WriteLine("Do you want to answer? Y/N");
-                var k = Console.ReadKey().KeyChar;
-                if (k == 'Y' || k == 'y')
-                {
-                    flag = false;
-                    answerer.AnswerToCall(ask.Number);
-                    var beginTime = DateTime.Now;
-                    Thread.Sleep(delay);
-                    answerer.EndCall();
-                    var endTime = DateTime.Now;
-                    var callCost = ate.GetCallCost(beginTime, endTime, ask);
-                    var callInformation = new CallInformation(ask.Number, answerer.Number, beginTime, endTime, callCost);
-                    ate.AddCallInformation(callInformation);
-                }
-                else
-                {
-                    Console.WriteLine($"Terminal with number: {answerer.Number}, have rejected call");
-                }
-
-                Console.WriteLine();
-            }
-
+            Console.WriteLine("Do you want to answer? Y/N");
+            var k = Console.ReadKey().KeyChar;
+            return k;
         }
+
+
     }
 }

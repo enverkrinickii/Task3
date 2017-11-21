@@ -14,11 +14,11 @@ namespace Task3.AutomaticTelephoneExchange
 
         public bool IsOnline;
 
-        public event Terminal.TerminalStateHandler Answered;
+        public event EventHandler<TerminalEventArgs> Answered;
 
-        public event Terminal.TerminalStateHandler Called;
+        public event EventHandler<TerminalEventArgs> Called;
 
-        public event Terminal.TerminalStateHandler Ended;
+        public event EventHandler<TerminalEventArgs> Ended;
 
         public Port()
         {

@@ -4,7 +4,9 @@ using System.Dynamic;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Task3.Enums;
 
 namespace Task3.AutomaticTelephoneExchange
 {
@@ -62,5 +64,38 @@ namespace Task3.AutomaticTelephoneExchange
             return _callInformations;
         }
 
+        public string CallProcess(Terminal answerer, Terminal ask, int delay, char key)
+        {
+            var temp = string.Empty;
+            ask.Call(answerer.Number);
+            if (answerer.Port.State != PortState.Busy && key == 'Y' || key == 'y')
+            {
+                var beginTime = DateTime.Now;
+                answerer.AnswerToCall(ask.Number);
+                Thread.Sleep(delay);
+                answerer.EndCall();
+                var endTime = DateTime.Now;
+                var callCost = GetCallCost(beginTime, endTime, ask);
+                var callInformation = new CallInformation(ask.Number, answerer.Number, beginTime, endTime, callCost);
+                AddCallInformation(callInformation);
+                temp = "";
+            }
+            else
+            {
+                temp = answerer.Port.State == PortState.Busy ? $"Terminal with number: {answerer.Number}, is busy now" : $"Terminal with number: {answerer.Number}, have rejected call";
+            }
+
+            return temp;
+        }
+
+        //public void RejectedCall(Terminal answerer, Terminal ask)
+        //{
+            
+        //    ask.Call(answerer.Number);
+            
+        //}
+        ////callprocesswith answer
+        ////call process rejected
     }
 }
+
