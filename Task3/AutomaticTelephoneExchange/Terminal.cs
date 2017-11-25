@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Task3.Enums;
-using Task3.Events;
+using Task3.TerminalEvents;
 
 namespace Task3.AutomaticTelephoneExchange
 {

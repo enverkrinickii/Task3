@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task3.Enums;
 
 namespace Task3.AutomaticTelephoneExchange
 {
@@ -30,6 +31,20 @@ namespace Task3.AutomaticTelephoneExchange
         {
             var number = _random.Next(1000000, 9999999);
             return number;
+        }
+
+        public bool ChangeTariff(TariffType type)
+        {
+            if (DateTime.Now.AddMonths(-1) >= RegisterDate)
+            {
+                RegisterDate = DateTime.Now;
+                Tariff = new Tariff(type);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

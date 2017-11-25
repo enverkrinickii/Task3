@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Task3.AutomaticTelephoneExchange;
 using Task3.Enums;
-using Task3.Events;
+using Task3.TerminalEvents;
 
 namespace Task3
 {
@@ -17,6 +17,8 @@ namespace Task3
         {
             var ate =  new ATE();
             var bs = new BillingSystem();
+
+            ate.NewCall += bs.AddNewCallInfo;
 
             var contract = ate.RegisterNewContract(new Client("Ivan", "Ivanov", 300), new Tariff(TariffType.Low));
             Thread.Sleep(100);
@@ -47,9 +49,8 @@ namespace Task3
             key = AnswerKey();
             Console.WriteLine(ate.CallProcess(terminal, terminal1, 4000, key));
 
-            var calls = ate.GetCallInformations();
 
-            var reports = bs.GetReports(terminal1.Number, calls);
+            var reports = bs.GetReports(terminal1.Number);
 
             foreach (var report in reports)
             {

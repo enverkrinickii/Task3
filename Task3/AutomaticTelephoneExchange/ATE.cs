@@ -16,6 +16,9 @@ namespace Task3.AutomaticTelephoneExchange
 
         private IList<CallInformation> _callInformations = new List<CallInformation>();
 
+        public event EventHandler<CallInformation> NewCall;
+        // событие на лдобавление в колинформэйшн 2й парамент объект колинфо
+
         public ATE()
         {
             _contractsAndTerminals = new Dictionary<Terminal, Contract>();
@@ -66,7 +69,7 @@ namespace Task3.AutomaticTelephoneExchange
 
         public string CallProcess(Terminal answerer, Terminal ask, int delay, char key)
         {
-            var temp = string.Empty;
+            string temp;
             ask.Call(answerer.Number);
             if (answerer.Port.State != PortState.Busy && key == 'Y' || key == 'y')
             {
@@ -76,8 +79,8 @@ namespace Task3.AutomaticTelephoneExchange
                 answerer.EndCall();
                 var endTime = DateTime.Now;
                 var callCost = GetCallCost(beginTime, endTime, ask);
-                var callInformation = new CallInformation(ask.Number, answerer.Number, beginTime, endTime, callCost);
-                AddCallInformation(callInformation);
+                OnNewCall( new CallInformation(ask.Number, answerer.Number, beginTime, endTime, callCost));
+
                 temp = "";
             }
             else
@@ -96,6 +99,10 @@ namespace Task3.AutomaticTelephoneExchange
         //}
         ////callprocesswith answer
         ////call process rejected
+        protected virtual void OnNewCall(CallInformation e)
+        {
+            NewCall?.Invoke(this, e);
+        }
     }
 }
 

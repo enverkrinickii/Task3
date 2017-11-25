@@ -8,40 +8,50 @@ namespace Task3.AutomaticTelephoneExchange
 {
     public class BillingSystem
     {
-        public IList<Report> Reports = new List<Report>();
+        private IList<Report> _reports;
 
-        public BillingSystem(/*IList<Report> reports*/)
+        private IList<CallInformation> _callInformations;
+
+        public BillingSystem()
         {
-            //_reports = reports;
+            _reports = new List<Report>();
+            _callInformations = new List<CallInformation>();
         }
 
-        public IList<Report> GetReports(int telephoneNumber, IList<CallInformation> callInformations)
+        public void AddNewCallInfo(object sender, CallInformation callInformation)
         {
-            var calls = callInformations.Where(x => x.Number == telephoneNumber || x.TargetNumber == telephoneNumber).
+            _callInformations.Add(callInformation);
+        }
+
+        public IEnumerable<Report> GetReports(int telephoneNumber)
+        {
+            var calls = _callInformations.Where(x => x.Number == telephoneNumber || x.TargetNumber == telephoneNumber).
                 ToList();
 
             foreach (var call in calls)
             {
-                Reports.Add(new Report(call.Number, call.BeginCall, new DateTime((call.EndCall - call.BeginCall).Ticks), call.Cost));
+                _reports.Add(new Report(call.Number, call.BeginCall, new DateTime((call.EndCall - call.BeginCall).Ticks), call.Cost));
             }
 
-            return Reports;
+            return _reports;
         }
 
         public IEnumerable<Report> SortByNumber()
         {
-           return Reports.OrderBy(r => r.Number);
+           return _reports.OrderBy(r => r.Number);
         }
 
         public IEnumerable<Report> SortByDuration()
         {
-            return Reports.OrderBy(r => r.Duration);
+            return _reports.OrderBy(r => r.Duration);
         }
 
         public IEnumerable<Report> SortByCost()
         {
-            return Reports.OrderBy(r => r.Cost);
+            return _reports.OrderBy(r => r.Cost);
         }
+
+
 
     }
 }

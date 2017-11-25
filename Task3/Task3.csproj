@@ -53,9 +53,9 @@
     <Compile Include="AutomaticTelephoneExchange\Tariff.cs" />
     <Compile Include="Enums\PortState.cs" />
     <Compile Include="Enums\TariffType.cs" />
-    <Compile Include="Events\TerminalEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TerminalEvents\TerminalEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
