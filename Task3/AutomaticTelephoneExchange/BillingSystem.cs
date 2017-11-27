@@ -25,7 +25,7 @@ namespace Task3.AutomaticTelephoneExchange
 
         public IEnumerable<Report> GetReports(int telephoneNumber)
         {
-            var calls = _callInformations.Where(x => x.Number == telephoneNumber || x.TargetNumber == telephoneNumber).
+            var calls = _callInformations.Where(x => x.Number == telephoneNumber /*|| x.TargetNumber == telephoneNumber*/).
                 ToList();
 
             foreach (var call in calls)
