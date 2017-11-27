@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Task3.Enums;
+using Task3.Interfaces;
 
 namespace Task3.AutomaticTelephoneExchange
 {
-    class ATE
+    class ATE: IAte
     {
-        private IDictionary<Terminal, Contract> _contractsAndTerminals;
+        private readonly IDictionary<Terminal, Contract> _contractsAndTerminals;
 
-        private IList<CallInformation> _callInformations = new List<CallInformation>();
-
+        //событие добавления информации о звонке при новом звонке
         public event EventHandler<CallInformation> NewCall;
-        // событие на лдобавление в колинформэйшн 2й парамент объект колинфо
+
+        protected virtual void OnNewCall(CallInformation e)
+        {
+            NewCall?.Invoke(this, e);
+        }
 
         public ATE()
         {
@@ -40,33 +39,27 @@ namespace Task3.AutomaticTelephoneExchange
             return terminal;
         }
 
+        // получаем словать ключ терминал значение его контракт
         public IDictionary<Terminal, Contract> GetContractsDictionary(Terminal terminal, Contract contract)
         {
             return _contractsAndTerminals;
         }
 
-        public int GetCallCost(DateTime beginCall, DateTime endCall, Terminal terminal)
+
+        private int GetCallCost(DateTime beginCall, DateTime endCall, Terminal terminal)
         {
             var contract = _contractsAndTerminals[terminal];
             var callCost = (int)(contract.Tariff.CoastPerMinute * TimeSpan.FromTicks((endCall - beginCall).Ticks).TotalMinutes);
             return callCost;
         }
 
+        //снятие денег со счета
         public void DebitFromAccount(int callCost, Contract contract)
         {
             contract.Client.Pay(callCost);
         }
 
-        public void AddCallInformation(CallInformation callInformation)
-        {
-            _callInformations.Add(callInformation);
-        }
-
-        public IList<CallInformation> GetCallInformations()
-        {
-            return _callInformations;
-        }
-
+        //процесс звонка 
         public string CallProcess(Terminal answerer, Terminal ask, int delay, char key)
         {
             string temp;
@@ -87,21 +80,7 @@ namespace Task3.AutomaticTelephoneExchange
             {
                 temp = answerer.Port.State == PortState.Busy ? $"Terminal with number: {answerer.Number}, is busy now" : $"Terminal with number: {answerer.Number}, have rejected call";
             }
-
             return temp;
-        }
-
-        //public void RejectedCall(Terminal answerer, Terminal ask)
-        //{
-            
-        //    ask.Call(answerer.Number);
-            
-        //}
-        ////callprocesswith answer
-        ////call process rejected
-        protected virtual void OnNewCall(CallInformation e)
-        {
-            NewCall?.Invoke(this, e);
         }
     }
 }

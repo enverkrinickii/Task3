@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Task3.Interfaces;
 
 namespace Task3.AutomaticTelephoneExchange
 {
-    public class BillingSystem
+    public class BillingSystem : IBs
     {
-        private IList<Report> _reports;
+        private readonly IList<Report> _reports;
 
-        private IList<CallInformation> _callInformations;
+        private readonly IList<CallInformation> _callInformations;
 
         public BillingSystem()
         {
@@ -51,6 +50,17 @@ namespace Task3.AutomaticTelephoneExchange
             return _reports.OrderBy(r => r.Cost);
         }
 
+
+        public double GetCoastForMonth(int number)
+        {
+            var today = DateTime.Today;
+            var month = new DateTime(today.Year, today.Month, 1);
+            var first = month.AddMonths(-1);
+            var last = month.AddDays(-1);
+            var reportsOfNumber =
+                _reports.Where(x => x.Number == number).Where(x => x.Date <= last && x.Date >= first );
+            return reportsOfNumber.Sum(report => report.Cost);
+        }
 
 
     }

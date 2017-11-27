@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Task3.Enums;
 
 namespace Task3.AutomaticTelephoneExchange
 {
-    class Contract
+    public class Contract
     {
-        readonly Random _random = new Random();
+        private readonly Random _random = new Random(unchecked((int) (DateTime.Now.Ticks)));
 
         public Tariff Tariff { get; private set; }
 
