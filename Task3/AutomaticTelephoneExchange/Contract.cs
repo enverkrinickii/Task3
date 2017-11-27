@@ -29,6 +29,7 @@ namespace Task3.AutomaticTelephoneExchange
             return number;
         }
 
+        //смена тарифа
         public bool ChangeTariff(TariffType type)
         {
             if (DateTime.Now.AddMonths(-1) >= RegisterDate)

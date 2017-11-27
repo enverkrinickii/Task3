@@ -39,6 +39,7 @@ namespace Task3.AutomaticTelephoneExchange
             Ended?.Invoke(this, new TerminalEventArgs( $"Звонок окончен. Абонент {Number} положил трубку"));
         }
 
+        //ответ на звонок который обрабатывается событием
         public void AnswerToCall(int target)
         {
             if (Port.Connect(this) && Port.State != PortState.Busy)
@@ -47,11 +48,13 @@ namespace Task3.AutomaticTelephoneExchange
             }
         }
 
+        //совершение звонка событие
         public void Call(int targetNumber)
         {
             OnCalled(targetNumber);
         }
 
+        //окончание звонка
         public void EndCall()
         {
             OnEnded();

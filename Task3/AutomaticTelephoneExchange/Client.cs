@@ -15,11 +15,13 @@
             AccountState = accountState;
         }
 
+        //добавление на счет
         public void AddMoney(int sum)
         {
             AccountState += sum;
         }
 
+        //снятие со счета
         public void Pay(int sum)
         {
             AccountState -= sum;

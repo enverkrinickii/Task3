@@ -21,6 +21,7 @@ namespace Task3.AutomaticTelephoneExchange
             State = PortState.Disconnect;
         }
 
+        //подоединение терминала к порту, подписка на события порта
         public bool Connect(Terminal terminal)
         {
             if (State == PortState.Disconnect)
@@ -35,6 +36,7 @@ namespace Task3.AutomaticTelephoneExchange
             return IsOnline;
         }
 
+        //отписка от событий, отсоединение терминала от порта
         public bool Disconnect(Terminal terminal)
         {
             if (State == PortState.Connect)

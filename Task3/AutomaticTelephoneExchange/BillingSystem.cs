@@ -17,11 +17,13 @@ namespace Task3.AutomaticTelephoneExchange
             _callInformations = new List<CallInformation>();
         }
 
+        // добавление информации о звонке
         public void AddNewCallInfo(object sender, CallInformation callInformation)
         {
             _callInformations.Add(callInformation);
         }
 
+        //создание отчета из информации о звонках
         public IEnumerable<Report> GetReports(int telephoneNumber)
         {
             var calls = _callInformations.Where(x => x.Number == telephoneNumber /*|| x.TargetNumber == telephoneNumber*/).
@@ -35,22 +37,25 @@ namespace Task3.AutomaticTelephoneExchange
             return _reports;
         }
 
+        //сортировка по номеру
         public IEnumerable<Report> SortByNumber()
         {
            return _reports.OrderBy(r => r.Number);
         }
 
+        //сортировака по продолжительности
         public IEnumerable<Report> SortByDuration()
         {
             return _reports.OrderBy(r => r.Duration);
         }
 
+        //сортировка по стоимости
         public IEnumerable<Report> SortByCost()
         {
             return _reports.OrderBy(r => r.Cost);
         }
 
-
+        //получение стоимости за месяц
         public double GetCoastForMonth(int number)
         {
             var today = DateTime.Today;

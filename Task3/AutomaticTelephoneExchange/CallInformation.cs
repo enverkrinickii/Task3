@@ -23,11 +23,5 @@ namespace Task3.AutomaticTelephoneExchange
             Cost = cost;
         }
 
-        public CallInformation(int number, int targetNumber, DateTime beginCall) 
-        {
-            Number = number;
-            TargetNumber = targetNumber;
-            BeginCall = beginCall;
-        }
     }
 }
